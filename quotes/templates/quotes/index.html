@@ -3,10 +3,9 @@
 
 <div class="row">
     <div class="col-md-8">
-
+        {% for quote in quotes %}
         <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
-            <span class="text" itemprop="text">“The world as we have created it is a process of our thinking. It
-                cannot be changed without changing our thinking.”</span>
+            <span class="text" itemprop="text"> {(quote.quote)} </span>
             <span>by <small class="author" itemprop="author">Albert Einstein</small>
                 <a href="/author/Albert-Einstein">(about)</a>
             </span>
@@ -28,20 +27,19 @@
         <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
             <span class="text" itemprop="text">“It is our choices, Harry, that show what we truly are, far more
                 than our abilities.”</span>
-            <span>by <small class="author" itemprop="author">J.K. Rowling</small>
-                <a href="/author/J-K-Rowling">(about)</a>
+            <span>by <small class="author" itemprop="author"> {(quote.author )} </small>
+                <a href="/author/{(quote.author )}">(about)</a>
             </span>
             <div class="tags">
                 Tags:
-                <meta class="keywords" itemprop="keywords" content="abilities,choices">
+                {% for tag in quote.tags.all %}
+                <a class="tag" href="/tag/{{tag}}">{tag}</a>
 
-                <a class="tag" href="/tag/abilities/page/1/">abilities</a>
-
-                <a class="tag" href="/tag/choices/page/1/">choices</a>
+                {% endfor %}
 
             </div>
         </div>
-
+        {% endfor %}
         <nav>
             <ul class="pager">
 
@@ -51,9 +49,10 @@
                 </li>
 
             </ul>
+            
         </nav>
     </div>
-    
+
 </div>
 
 {% endblock %}

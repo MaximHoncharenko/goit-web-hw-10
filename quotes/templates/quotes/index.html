@@ -1,52 +1,36 @@
-{%extends 'quotes/base.html'%}
-{%block content%}
+{% extends 'quotes/base.html' %}
+{% load extract %}
+{% block content %}
 
 <div class="row">
     <div class="col-md-8">
+        {% if quotes %}
         {% for quote in quotes %}
-        <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
-            <span class="text" itemprop="text">
-                {{quote.quote}} </span>
-            <span>by <small class="author" itemprop="author">{{quote.author}} </small>
-                <a href="/author/{{quote.author}}">(about)</a>
+        <div class="quote" itemscope itemtype="http://schema.org/CreativeWork">
+            <span class="text" itemprop="text">{{ quote.quote }}</span>
+            <span>by <small class="author" itemprop="author">{{ quote.author|author}}</small>
+                <a href="/author/{{ quote.author }}">(about)</a>
             </span>
             <div class="tags">
                 Tags:
                 {% for tag in quote.tags.all %}
-                <a class="tag" href="/tag/{{tag}}">{{tag}}</a>
+                <a class="tag" href="/tag/{{ tag }}">{{ tag }}</a>
                 {% endfor %}
-            </div>
-        </div>
-
-        <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
-            <span class="text" itemprop="text">“It is our choices, Harry, that show what we truly are, far more
-                than our abilities.”</span>
-            <span>by <small class="author" itemprop="author"> {{quote.author }} </small>
-                <a href="/author/{{quote.author}}">(about)</a>
-            </span>
-            <div class="tags">
-                Tags:
-                {% for tag in quote.tags.all %}
-                <a class="tag" href="/tag/{{tag}}">{tag}</a>
-
-                {% endfor %}
-
             </div>
         </div>
         {% endfor %}
+        {% else %}
+        <p>No quotes available at the moment.</p>
+        {% endif %}
+
         <nav>
             <ul class="pager">
-
-
                 <li class="next">
                     <a href="/page/2/">Next <span aria-hidden="true">→</span></a>
                 </li>
-
             </ul>
-
         </nav>
     </div>
-
 </div>
 
 {% endblock %}

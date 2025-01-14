@@ -23,9 +23,9 @@
             <div class="col-md-4">
                 <p>
 
-                    <a href="/login"class="btn btn-primary">SignUp</a>
-                    <a href="/login"class="btn btn-primary">Login</a>
-                    <a href="/login"class="btn btn-primary">Logout</a>
+                    <a href="/login" class="btn btn-primary">SignUp</a>
+                    <a href="/login" class="btn btn-primary">Login</a>
+                    <a href="/login" class="btn btn-primary">Logout</a>
 
 
                 </p>
@@ -33,10 +33,14 @@
         </div>
 
 
-        {%block content%}
-        {% endblock %}
+        <div class="row">
+            <div class="col-md-8">
+                {% block content %}
 
-    </div>
+                {% endblock %}
+            </div>
+
+        </div>
 </body>
 
 </html>

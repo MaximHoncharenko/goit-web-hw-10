@@ -3,10 +3,10 @@ import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-client = MongoClient('mongodb://localhost')
-db = client.hw
+client = MongoClient('mongodb://localhost:27017/')
+db = client.hw_10
 
-with open('D:/Projects/reps/goit-web-hw-10/utils/quotes.json', 'r', encoding='utf-8') as fd:
+with open('quotes.json', 'r', encoding='utf-8') as fd:
     quotes = json.load(fd)
 
 
@@ -14,6 +14,4 @@ with open('D:/Projects/reps/goit-web-hw-10/utils/quotes.json', 'r', encoding='ut
 for quote in quotes:
     author= db.authors.find_one({'fullname': quote['author']})
     if author:
-        db.quoters.insert_one({'quote': quote['quote'],
-                                'author': author['_id'],
-                                'tags': quote['tags']})
+        db.quotes.insert_one({'quote':quote['text'], 'author': ObjectId(author['_id']), 'tags': quote['tags']})

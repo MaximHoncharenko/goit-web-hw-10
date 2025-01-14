@@ -5,5 +5,5 @@ from .utils import get_mongodb
 
 def main(request):
     db = get_mongodb()
-    quotes = db.quoters.find()
-    return render(request, "quotes/index.html", context={quotes: quotes})  
+    quotes = db.quotes.find()
+    return render(request, "quotes\index.html", context={quotes: quotes})  

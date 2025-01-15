@@ -1,5 +1,5 @@
 {% extends 'quotes/base.html' %}
-{% load extract %}
+
 {% block content %}
 <h1>Quotes tagged with "{{ tag }}"</h1>
 
@@ -8,11 +8,11 @@
         {% for quote in quotes %}
         <div class="quote">
             <p>{{ quote.quote }}</p>
-            <p>by {{ quote.author|author }}</p>
+            <p>by {{ quote.author }}</p>
             <div class="tags">
                 Tags:
                 {% for tag in quote.tags %}
-                <a href="{% url 'quotes_by_tag' tag=tag %}">{{ tag }}</a>
+                    <a href="{% url 'quotes_by_tag' tag=tag %}">{{ tag }}</a>
                 {% endfor %}
             </div>
         </div>
@@ -21,4 +21,13 @@
         <p>No quotes found for this tag.</p>
     {% endif %}
 </div>
+
+<!-- Top Ten Tags Block -->
+<h3>Top Ten Tags</h3>
+<ul>
+    {% for tag, count in top_tags %}
+        <li><a href="{% url 'quotes_by_tag' tag=tag %}">{{ tag }} ({{ count }})</a></li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

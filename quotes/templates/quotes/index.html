@@ -22,22 +22,33 @@
         {% else %}
         <p>No quotes available at the moment.</p>
         {% endif %}
-
-        <nav>
-            <ul class="pager">
-                {% if quotes_on_page.has_previous %}
-                <li class="previous">
-                    <a href="?page={{ quotes_on_page.previous_page_number }}">← Previous</a>
-                </li>
-                {% endif %}
-                {% if quotes_on_page.has_next %}
-                <li class="next">
-                    <a href="?page={{ quotes_on_page.next_page_number }}">Next →</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
     </div>
+
+    <div class="col-md-4">
+        <!-- Top Ten Tags Block -->
+        <h3>Top Ten Tags</h3>
+        <ul>
+            {% for tag, count in top_tags %}
+            <li><a href="{% url 'quotes_by_tag' tag=tag %}">{{ tag }} ({{ count }})</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
 </div>
+
+<nav>
+    <ul class="pager">
+        {% if quotes_on_page.has_previous %}
+        <li class="previous">
+            <a href="?page={{ quotes_on_page.previous_page_number }}">← Previous</a>
+        </li>
+        {% endif %}
+        {% if quotes_on_page.has_next %}
+        <li class="next">
+            <a href="?page={{ quotes_on_page.next_page_number }}">Next →</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
 
 {% endblock %}

@@ -4,15 +4,17 @@
 
 <div class="row">
     <div class="col-md-8">
-        {% if quotes %}
-        {% for quote in quotes %}
+        {% if quotes_on_page %}
+        {% for quote in quotes_on_page %}
         <div class="quote" itemscope itemtype="http://schema.org/CreativeWork">
             <span class="text" itemprop="text">{{ quote.quote }}</span>
-            <span>by <small class="author" itemprop="author">{{ quote.author|author }}</small></span>
+            <span>by <small class="author" itemprop="author">{{ quote.author|author }}</small>
+                <a href="/author/{{ quote.author }}">(about)</a>
+            </span>
             <div class="tags">
                 Tags:
                 {% for tag in quote.tags %}
-                <a class="tag" href="/tag/{{ tag }}">{{ tag }}</a>
+                <a class="tag" href="{% url 'quotes_by_tag' tag=tag %}">{{ tag }}</a>
                 {% endfor %}
             </div>
         </div>
@@ -23,9 +25,16 @@
 
         <nav>
             <ul class="pager">
-                <li class="next">
-                    <a href="/page/2/">Next <span aria-hidden="true">→</span></a>
+                {% if quotes_on_page.has_previous %}
+                <li class="previous">
+                    <a href="?page={{ quotes_on_page.previous_page_number }}">← Previous</a>
                 </li>
+                {% endif %}
+                {% if quotes_on_page.has_next %}
+                <li class="next">
+                    <a href="?page={{ quotes_on_page.next_page_number }}">Next →</a>
+                </li>
+                {% endif %}
             </ul>
         </nav>
     </div>

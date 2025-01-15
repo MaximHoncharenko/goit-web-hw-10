@@ -1,0 +1,24 @@
+{% extends 'quotes/base.html' %}
+{% load extract %}
+{% block content %}
+<h1>Quotes tagged with "{{ tag }}"</h1>
+
+<div class="quotes">
+    {% if quotes %}
+        {% for quote in quotes %}
+        <div class="quote">
+            <p>{{ quote.quote }}</p>
+            <p>by {{ quote.author|author }}</p>
+            <div class="tags">
+                Tags:
+                {% for tag in quote.tags %}
+                <a href="{% url 'quotes_by_tag' tag=tag %}">{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No quotes found for this tag.</p>
+    {% endif %}
+</div>
+{% endblock %}

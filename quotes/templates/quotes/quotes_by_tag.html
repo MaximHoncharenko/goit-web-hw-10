@@ -23,7 +23,7 @@
 </div>
 
 <!-- Top Ten Tags Block -->
-<h3>Top Ten Tags</h3>
+<h3>Top 10 Tags</h3>
 <ul>
     {% for tag, count in top_tags %}
         <li><a href="{% url 'quotes_by_tag' tag=tag %}">{{ tag }} ({{ count }})</a></li>

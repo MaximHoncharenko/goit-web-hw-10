@@ -8,8 +8,14 @@
         {% for quote in quotes_on_page %}
         <div class="quote" itemscope itemtype="http://schema.org/CreativeWork">
             <span class="text" itemprop="text">{{ quote.quote }}</span>
-            <span>by <small class="author" itemprop="author">{{ quote.author|author }}</small>
-                <a href="/author/{{ quote.author }}">(about)</a>
+            <span>by 
+                <small class="author" itemprop="author">
+                    {% if quote.author %}
+                    <h3><a href="{% url 'author_detail' author_id=quote.author.id %}">{{ quote.author.name }}</a></h3>
+                    {% else %}
+                    <h3>Unknown Author</h3>
+                    {% endif %}
+                </small>
             </span>
             <div class="tags">
                 Tags:
@@ -33,7 +39,6 @@
             {% endfor %}
         </ul>
     </div>
-
 </div>
 
 <nav>

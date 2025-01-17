@@ -29,6 +29,7 @@ def main(request):
         "top_tags": top_tags  # Передаємо top_tags на головну сторінку
     })
 
+
 def quotes_by_tag(request, tag):
     db = get_mongodb()
     

@@ -10,5 +10,5 @@ urlpatterns = [
     path('user_logout/', views.user_logout, name='logout'),   # Сторінка виходу
     path('add-author/', views.add_author, name='add_author'),  # Додавання автора
     path('add-quote/', views.add_quote, name='add_quote'),     # Додавання цитати
-    path('author/<int:author_id>/', author_detail, name='author_detail'),
+    path('author/<str:author_id>/', views.author_detail, name='author_detail')
     ]

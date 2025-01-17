@@ -8,7 +8,7 @@
         {% for quote in quotes_on_page %}
         <div class="quote" itemscope itemtype="http://schema.org/CreativeWork">
             <span class="text" itemprop="text">{{ quote.quote }}</span>
-            <span>by 
+            <span>by
                 <small class="author" itemprop="author">
                     {% if quote.author %}
                     <h3><a href="{% url 'author_detail' author_id=quote.author.id %}">{{ quote.author.name }}</a></h3>

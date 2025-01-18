@@ -5,29 +5,34 @@
 <div class="row">
     <div class="col-md-8">
         {% if quotes_on_page %}
-        {% for quote in quotes_on_page %}
-        <div class="quote" itemscope itemtype="http://schema.org/CreativeWork">
+    {% for quote in quotes_on_page %}
+        <div class="quote" itemscope itemtype="https://schema.org/CreativeWork">
             <span class="text" itemprop="text">{{ quote.quote }}</span>
             <span>by
                 <small class="author" itemprop="author">
                     {% if quote.author %}
-                    <h3><a href="{% url 'author_detail' author_id=quote.author.id %}">{{ quote.author.name }}</a></h3>
+                        <a href="{% url 'author_detail' author_id=quote.author_id %}">{{ quote.author.name }}</a>
                     {% else %}
-                    <h3>Unknown Author</h3>
+                        <p>Author not found</p>
                     {% endif %}
                 </small>
             </span>
-            <div class="tags">
-                Tags:
-                {% for tag in quote.tags %}
-                <a class="tag" href="{% url 'quotes_by_tag' tag=tag %}">{{ tag }}</a>
-                {% endfor %}
-            </div>
+
+            <!-- Додаємо перевірку значень для дебагу -->
+            <div>
+    {% if quote.author %}
+        Author Name: {{ quote.author.fullname }}
+    {% else %}
+        Author Name: No author
+    {% endif %}
+</div>
+
         </div>
-        {% endfor %}
-        {% else %}
-        <p>No quotes available at the moment.</p>
-        {% endif %}
+    {% endfor %}
+{% else %}
+    <p>No quotes available at the moment.</p>
+{% endif %}
+
     </div>
 
     <div class="col-md-4">

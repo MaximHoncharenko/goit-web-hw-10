@@ -8,7 +8,7 @@
         {% for quote in quotes %}
         <div class="quote">
             <p>{{ quote.quote }}</p>
-            <p>by {{ quote.author }}</p>
+            <p>by {{ quote.author_name }}</p> <!-- Використовуємо author_name -->
             <div class="tags">
                 Tags:
                 {% for tag in quote.tags %}

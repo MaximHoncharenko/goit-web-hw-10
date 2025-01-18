@@ -1,5 +1,4 @@
 from django.urls import path
-from .views import author_detail
 from . import views
 
 urlpatterns = [
@@ -10,5 +9,5 @@ urlpatterns = [
     path('user_logout/', views.user_logout, name='logout'),   # Сторінка виходу
     path('add-author/', views.add_author, name='add_author'),  # Додавання автора
     path('add-quote/', views.add_quote, name='add_quote'),     # Додавання цитати
-    path('author/<str:author_id>/', views.author_detail, name='author_detail')
+    path('author/<str:author_id>/', views.author_detail, name='author_detail'),
     ]

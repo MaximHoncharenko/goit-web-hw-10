@@ -11,6 +11,19 @@ from .forms import CustomUserCreationForm, AuthorForm, QuoteForm
 from .models import Author
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
+
+# Клас для обробки скидання паролю (ви вже імпортували це в urls.py)
+# Якщо потрібно, можна додавати додаткову логіку
+
 
 def main(request):
     db = get_mongodb()
@@ -45,11 +58,6 @@ def main(request):
         "quotes_on_page": quotes_on_page,
         "top_tags": top_tags  # Передаємо top_tags на головну сторінку
     })
-
-
-
-
-
 
 def quotes_by_tag(request, tag):
     db = get_mongodb()
@@ -116,7 +124,7 @@ def add_author(request):
         form = AuthorForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('main')  # Перенаправлення на головну сторінку
+            return redirect('main')  # Перенаправлення на головну сторінку після успішного збереження
     else:
         form = AuthorForm()
 
@@ -125,15 +133,20 @@ def add_author(request):
 # Додавання нової цитати
 @login_required  # Тільки для авторизованих користувачів
 def add_quote(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = QuoteForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('main')  # Перенаправлення на головну сторінку
+            # Додаємо поточного користувача до форми перед збереженням
+            quote = form.save(commit=False)
+            quote.user = request.user  # Заповнюємо поле користувача
+            quote.save()
+            return redirect('main')  # Перенаправляємо на головну сторінку
+        else:
+            print(form.errors)  # Виводимо помилки для дебагу
     else:
         form = QuoteForm()
 
-    return render(request, "quotes/add_quote.html", {"form": form})
+    return render(request, 'quotes/add_quote.html', {'form': form})
 
 def author_detail(request, author_id):
     """Відображення сторінки автора"""

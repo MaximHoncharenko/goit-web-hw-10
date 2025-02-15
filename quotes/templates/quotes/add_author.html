@@ -1,9 +1,9 @@
 {% extends 'quotes/base.html' %}
 {% block content %}
-<h2>Додати автора</h2>
-<form method="post">
+  <h1>Add a New Author</h1>
+  <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Додати</button>
-</form>
+    {{ form.as_p }}  <!-- Відображаємо форму -->
+    <button type="submit" class="btn btn-primary">Save Author</button>
+  </form>
 {% endblock %}
